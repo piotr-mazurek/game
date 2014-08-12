@@ -1,0 +1,15 @@
+<a href="/characters/create/">Create new character!</a><hr>
+{% if selected_character %}
+Currently selected character : {{ selected_character }}<hr>
+{% else %}
+Select a character.<hr>
+{% endif %}
+{% if character_list %}
+    {% for character in character_list %}
+      	<a href="/characters/{{ character.id }}/">{{ character.name }}<br>
+    	<img src="{{ character.image }}" /></a><br>
+       	<a href="/characters/{{ character.id }}/delete">Delete</a><hr>
+    {% endfor %}
+{% else %}
+    <p>You have no characters.</p>
+{% endif %}
