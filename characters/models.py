@@ -4,7 +4,7 @@ class FighterClasses(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
-    	return self.name
+        return self.name
 
 class Character(models.Model):
     user_id = models.IntegerField(default=0)
@@ -14,4 +14,4 @@ class Character(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-    	return self.name
+        return self.name

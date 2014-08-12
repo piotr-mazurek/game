@@ -2,6 +2,6 @@
 <img src="{{ character.image }}" /><br>
 {{ character.character_class_id }} Level 9
 <form action="{% url 'detail' character.id %}" method="post">
-	{% csrf_token %}
-	<input type="submit" value="Select" />
+    {% csrf_token %}
+    <input type="submit" value="Select" />
 </form>
