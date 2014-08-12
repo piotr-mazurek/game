@@ -10,8 +10,9 @@
 			{% if building.level = 0 %}
 				<li><a href="{% url 'upgrade' building.building_id.id %}">Build</a>
 					Resources required to build {{ building.building_id }}.
-					{{ cost_next_level.Lumbermill }}
-
+					{% for x,y in building.building_id.cost.items %}
+						<li>{{ x }}: {{ y }}</li>
+					{% endfor %}
 				</li>
 			{% endif %}
 			{% if building.level > 0 %}
@@ -19,6 +20,10 @@
 			{% endif %}
 			{% if building.level >= 1 and building.level < building.building_id.max_level %}
 				<li><a href="{% url 'upgrade' building.building_id.id %}">Upgrade</a></li>
+				Cost:
+				{% for x,y in building.building_id.cost.items %}
+					<li>{{ x }}: {{ y }}</li>
+				{% endfor %}
 			{% endif %}
 	</ul>
 {% endfor %}
