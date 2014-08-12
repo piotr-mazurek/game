@@ -73,26 +73,36 @@ def overview(request):
 
 def upgrade(request, building_id):
 
-	building = BuildingsInVillage.objects.get(
-		building_id=building_id, village_id=request.session.get('village_id')
-		)
-	building.level += 1
-	total_cost = cost_per_level(building.level, building_id)
-	resources = ResourcesInVillage.objects.filter(
-		village_id=request.session.get('village_id')
-		)
-	for resource in resources:
-		try:
-			resource.amount -= total_cost[
-				str(resource.resource_id.resource_type)
-				]
-			if resource.amount < 0:
-				return redirect('overview')
-			resource.save()
-		except:
-			pass
-	building.save()
-	return redirect('overview')
+    building = BuildingsInVillage.objects.get(
+        building_id=building_id, village_id=request.session.get('village_id')
+        )
+    building.level += 1
+    total_cost = cost_per_level(building.level, building_id)
+    resources = ResourcesInVillage.objects.filter(
+        village_id=request.session.get('village_id')
+        )
+
+    is_ok = True
+    for resource in resources:
+        amount = resource.amount - total_cost[
+            str(resource.resource_id.resource_type)
+        ]
+        if amount < 0:
+            is_ok = False
+
+    if is_ok:
+        for resource in resources:
+            try:
+                resource.amount -= total_cost[
+                    str(resource.resource_id.resource_type)
+                    ]
+                if resource.amount < 0:
+                    return redirect('overview')
+                resource.save()
+            except:
+                pass
+        building.save()
+    return redirect('overview')
 
 def downgrade(request, building_id):
 
