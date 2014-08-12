@@ -1,13 +1,13 @@
 from django.contrib import admin
 from village.models import (
-	Buildings, 
-	Resources, 
-	Costs, 
-	Gainings, 
-	BuildingsInVillage, 
-	ResourcesInVillage, 
-	Village
-	)
+    Buildings,
+    Resources,
+    Costs,
+    Gainings,
+    BuildingsInVillage,
+    ResourcesInVillage,
+    Village
+    )
 
 admin.site.register(Buildings)
 admin.site.register(Resources)

@@ -14,7 +14,8 @@ def authenticate_user(request):
     if user is not None:
         if user.is_active:
             login(request, user)
-            return redirect('profile')
+            request.session["user_id"] = user.id
+            return redirect('index')
     else:
         messages.add_message(
             request,
@@ -36,6 +37,7 @@ def profile(request):
     else:
         return redirect('login_show')
 
+
 def register(request):
     """User registration view"""
     if request.method == 'POST':
@@ -49,7 +51,8 @@ def register(request):
             user.save()
             return HttpResponse('dupka')
     elif request.method == 'GET':
-        return render(request, 'register.html')        
+        return render(request, 'register.html')
+
 
 def logout_view(request):
 

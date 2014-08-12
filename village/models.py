@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Buildings(models.Model):
 
     name = models.CharField(max_length=100, unique=True)
@@ -8,12 +9,14 @@ class Buildings(models.Model):
     def __str__(self):
         return self.name
 
+
 class Resources(models.Model):
 
     resource_type = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.resource_type
+
 
 class Costs(models.Model):
 
@@ -24,11 +27,12 @@ class Costs(models.Model):
 
     def __str__(self):
         return "%s, %s, %s, %s" % (
-            self.building_id, 
-            self.resource_id, 
-            self.starting_cost, 
+            self.building_id,
+            self.resource_id,
+            self.starting_cost,
             self.multiplier
             )
+
 
 class Gainings(models.Model):
 
@@ -39,11 +43,12 @@ class Gainings(models.Model):
 
     def __str__(self):
         return "%s, %s, %s, %s" % (
-            self.building_id, 
-            self.resource_id, 
-            self.first_gain, 
+            self.building_id,
+            self.resource_id,
+            self.first_gain,
             self.multiplier
             )
+
 
 class Village(models.Model):
 
@@ -52,6 +57,7 @@ class Village(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class BuildingsInVillage(models.Model):
 
@@ -64,6 +70,7 @@ class BuildingsInVillage(models.Model):
             self.village_id,
             self.building_id
             )
+
 
 class ResourcesInVillage(models.Model):
 

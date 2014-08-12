@@ -46,7 +46,7 @@ def gain_per_level(level, building_id):
 
 def overview(request):
 
-    village = Village.objects.get(pk=3)
+    village = Village.objects.get(character_id=request.session.get('selected_character_id'))
     request.session["village_id"]=village.id
     all_buildings = Buildings.objects.all()
     buildings = BuildingsInVillage.objects.filter(
@@ -57,9 +57,10 @@ def overview(request):
         )
     name = village.name
     for building in buildings:
-        building.building_id.cost = cost_per_level(
-            building.level+1, 
-            building.building_id.id
+        if building.level < 18:
+            building.building_id.cost = cost_per_level(
+                building.level+1,
+                building.building_id.id
         )
     context = {
         'name': name,
