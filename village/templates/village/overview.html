@@ -1,0 +1,24 @@
+<strong>{{ village.name }}</strong> |		
+
+{% for resource in resources %}
+	{{ resource.resource_id }}: {{ resource.amount }}/{{ resource.capacity }} |
+{% endfor %}
+
+{% for building in buildings %}
+	<ul>
+		{{ building.building_id }}. Level: {{ building.level }} 
+			{% if building.level = 0 %}
+				<li><a href="{% url 'upgrade' building.building_id.id %}">Build</a>
+					Resources required to build {{ building.building_id }}.
+					{{ cost_next_level.Lumbermill }}
+
+				</li>
+			{% endif %}
+			{% if building.level > 0 %}
+				<li><a href="{% url 'downgrade' building.building_id.id %}">Downgrade</a></li>
+			{% endif %}
+			{% if building.level >= 1 and building.level < building.building_id.max_level %}
+				<li><a href="{% url 'upgrade' building.building_id.id %}">Upgrade</a></li>
+			{% endif %}
+	</ul>
+{% endfor %}

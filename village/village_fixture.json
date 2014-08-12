@@ -1,0 +1,557 @@
+[
+  {
+    "model": "village.Buildings",
+    "pk": 1,
+    "fields": {
+      "name": "Lumbermill",
+      "max_level": 18
+    }
+  },
+  {
+    "model": "village.Buildings",
+    "pk": 2,
+    "fields": {
+      "name": "Quarry",
+      "max_level": 18
+    }
+  },
+  {
+    "model": "village.Buildings",
+    "pk": 3,
+    "fields": {
+      "name": "Gold Mine",
+      "max_level": 18
+    }
+  },
+  {
+    "model": "village.Buildings",
+    "pk": 4,
+    "fields": {
+      "name": "Town Hall",
+      "max_level": 5
+    }
+  },
+  {
+    "model": "village.Buildings",
+    "pk": 5,
+    "fields": {
+      "name": "Wall",
+      "max_level": 10
+    }
+  },
+  {
+    "model": "village.Buildings",
+    "pk": 6,
+    "fields": {
+      "name": "Marketplace",
+      "max_level": 7
+    }
+  },
+  {
+    "model": "village.Resources",
+    "pk": 1,
+    "fields": {
+      "resource_type": "Wood"
+    }
+  },
+  {
+    "model": "village.Resources",
+    "pk": 2,
+    "fields": {
+      "resource_type": "Stone"
+    }
+  },
+  {
+    "model": "village.Resources",
+    "pk": 3,
+    "fields": {
+      "resource_type": "Gold"
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 1,
+    "fields": {
+      "starting_cost": 100,
+      "multiplier": 1.5,
+      "building_id": 1,
+      "resource_id": 1
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 2,
+    "fields": {
+      "starting_cost": 100,
+      "multiplier": 1.5,
+      "building_id": 1,
+      "resource_id": 2
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 3,
+    "fields": {
+      "starting_cost": 50,
+      "multiplier": 1.3,
+      "building_id": 1,
+      "resource_id": 3
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 4,
+    "fields": {
+      "starting_cost": 100,
+      "multiplier": 1.5,
+      "building_id": 2,
+      "resource_id": 1
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 5,
+    "fields": {
+      "starting_cost": 100,
+      "multiplier": 1.5,
+      "building_id": 2,
+      "resource_id": 2
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 6,
+    "fields": {
+      "starting_cost": 50,
+      "multiplier": 1.3,
+      "building_id": 2,
+      "resource_id": 3
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 7,
+    "fields": {
+      "starting_cost": 500,
+      "multiplier": 1.2,
+      "building_id": 3,
+      "resource_id": 1
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 8,
+    "fields": {
+      "starting_cost": 500,
+      "multiplier": 1.2,
+      "building_id": 3,
+      "resource_id": 2
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 9,
+    "fields": {
+      "starting_cost": 300,
+      "multiplier": 1.6,
+      "building_id": 3,
+      "resource_id": 3
+    }
+  },
+    {
+    "model": "village.Costs",
+    "pk": 10,
+    "fields": {
+      "starting_cost": 1000,
+      "multiplier": 1.5,
+      "building_id": 4,
+      "resource_id": 1
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 11,
+    "fields": {
+      "starting_cost": 2000,
+      "multiplier": 1.5,
+      "building_id": 4,
+      "resource_id": 2
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 12,
+    "fields": {
+      "starting_cost": 1500,
+      "multiplier": 1.3,
+      "building_id": 4,
+      "resource_id": 3
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 13,
+    "fields": {
+      "starting_cost": 700,
+      "multiplier": 1.1,
+      "building_id": 5,
+      "resource_id": 1
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 14,
+    "fields": {
+      "starting_cost": 100,
+      "multiplier": 2,
+      "building_id": 5,
+      "resource_id": 2
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 15,
+    "fields": {
+      "starting_cost": 50,
+      "multiplier": 1.3,
+      "building_id": 5,
+      "resource_id": 3
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 16,
+    "fields": {
+      "starting_cost": 400,
+      "multiplier": 1.1,
+      "building_id": 6,
+      "resource_id": 1
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 17,
+    "fields": {
+      "starting_cost": 300,
+      "multiplier": 1.2,
+      "building_id": 6,
+      "resource_id": 2
+    }
+  },
+  {
+    "model": "village.Costs",
+    "pk": 18,
+    "fields": {
+      "starting_cost": 500,
+      "multiplier": 1,
+      "building_id": 6,
+      "resource_id": 3
+    }
+  },
+  {
+    "model": "village.Gainings",
+    "pk": 1,
+    "fields": {
+      "first_gain": 50,
+      "multiplier": 1.7,
+      "building_id": 1,
+      "resource_id": 1
+    }
+  },
+  {
+    "model": "village.Gainings",
+    "pk": 2,
+    "fields": {
+      "first_gain": 50,
+      "multiplier": 1.7,
+      "building_id": 2,
+      "resource_id": 2
+    }
+  },
+  {
+    "model": "village.Gainings",
+    "pk": 3,
+    "fields": {
+      "first_gain": 50,
+      "multiplier": 1.7,
+      "building_id": 3,
+      "resource_id": 3
+    }
+  },
+  {
+    "model": "village.Village",
+    "pk": 1,
+    "fields": {
+      "name": "Os'ald",
+      "character_id": 1
+    }
+  },
+  {
+    "model": "village.Village",
+    "pk": 2,
+    "fields": {
+      "name": "Veren",
+      "character_id": 1
+    }
+  },
+  {
+    "model": "village.Village",
+    "pk": 3,
+    "fields": {
+      "name": "Gar'mor",
+      "character_id": 2
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 1,
+    "fields": {
+      "village_id": 3,
+      "building_id": 1,
+      "level": 3
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 2,
+    "fields": {
+      "village_id": 3,
+      "building_id": 2,
+      "level": 3
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 3,
+    "fields": {
+      "village_id": 3,
+      "building_id": 3,
+      "level": 3
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 4,
+    "fields": {
+      "village_id": 3,
+      "building_id": 4,
+      "level": 0
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 5,
+    "fields": {
+      "village_id": 3,
+      "building_id": 5,
+      "level": 0
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 6,
+    "fields": {
+      "village_id": 3,
+      "building_id": 6,
+      "level": 0
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 7,
+    "fields": {
+      "village_id": 1,
+      "building_id": 1,
+      "level": 2
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 8,
+    "fields": {
+      "village_id": 1,
+      "building_id": 2,
+      "level": 2
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 9,
+    "fields": {
+      "village_id": 1,
+      "building_id": 3,
+      "level": 4
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 10,
+    "fields": {
+      "village_id": 1,
+      "building_id": 4,
+      "level": 0
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 11,
+    "fields": {
+      "village_id": 1,
+      "building_id": 5,
+      "level": 0
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 12,
+    "fields": {
+      "village_id": 1,
+      "building_id": 6,
+      "level": 0
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 13,
+    "fields": {
+      "village_id": 2,
+      "building_id": 1,
+      "level": 4
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 14,
+    "fields": {
+      "village_id": 2,
+      "building_id": 2,
+      "level": 2
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 15,
+    "fields": {
+      "village_id": 2,
+      "building_id": 3,
+      "level": 3
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 16,
+    "fields": {
+      "village_id": 2,
+      "building_id": 4,
+      "level": 0
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 17,
+    "fields": {
+      "village_id": 2,
+      "building_id": 5,
+      "level": 0
+    }
+  },
+  {
+    "model": "village.BuildingsInVillage",
+    "pk": 18,
+    "fields": {
+      "village_id": 2,
+      "building_id": 6,
+      "level": 0
+    }
+  },
+  {
+    "model": "village.ResourcesInVillage",
+    "pk": 1,
+    "fields": {
+      "village_id": 3,
+      "resource_id": 3,
+      "amount": 2500,
+      "capacity": 20000
+    }
+  },
+  {
+    "model": "village.ResourcesInVillage",
+    "pk": 2,
+    "fields": {
+      "village_id": 3,
+      "resource_id": 1,
+      "amount": 2500,
+      "capacity": 20000
+    }
+  },
+  {
+    "model": "village.ResourcesInVillage",
+    "pk": 3,
+    "fields": {
+      "village_id": 3,
+      "resource_id": 2,
+      "amount": 1250,
+      "capacity": 10000
+    }
+  },
+  {
+    "model": "village.ResourcesInVillage",
+    "pk": 4,
+    "fields": {
+      "village_id": 1,
+      "resource_id": 3,
+      "amount": 2500,
+      "capacity": 20000
+    }
+  },
+  {
+    "model": "village.ResourcesInVillage",
+    "pk": 5,
+    "fields": {
+      "village_id": 1,
+      "resource_id": 1,
+      "amount": 2500,
+      "capacity": 20000
+    }
+  },
+  {
+    "model": "village.ResourcesInVillage",
+    "pk": 6,
+    "fields": {
+      "village_id": 1,
+      "resource_id": 2,
+      "amount": 1250,
+      "capacity": 10000
+    }
+  },
+  {
+    "model": "village.ResourcesInVillage",
+    "pk": 7,
+    "fields": {
+      "village_id": 2,
+      "resource_id": 3,
+      "amount": 2500,
+      "capacity": 20000
+    }
+  },
+  {
+    "model": "village.ResourcesInVillage",
+    "pk": 8,
+    "fields": {
+      "village_id": 2,
+      "resource_id": 1,
+      "amount": 2500,
+      "capacity": 20000
+    }
+  },
+  {
+    "model": "village.ResourcesInVillage",
+    "pk": 9,
+    "fields": {
+      "village_id": 2,
+      "resource_id": 2,
+      "amount": 1250,
+      "capacity": 10000
+    }
+  }
+]
