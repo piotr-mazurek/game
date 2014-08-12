@@ -1,0 +1,9 @@
+<strong>{{ character.name }}</strong><br>
+<img src="{{ character.image }}" /><br>
+{{ character.character_class_id }} Level 9<br>
+
+<form action="{% url 'delete' character_id %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Delete" />
+</form>
