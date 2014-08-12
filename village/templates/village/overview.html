@@ -10,7 +10,7 @@
 			{% if building.level = 0 %}
 				<li><a href="{% url 'upgrade' building.building_id.id %}">Build</a>
 					Resources required to build {{ building.building_id }}.
-					{{ cost_next_level.Lumbermill }}
+					{{ cost_next_level.building_id.resource_id }}
 
 				</li>
 			{% endif %}

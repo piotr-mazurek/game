@@ -500,7 +500,7 @@
     "fields": {
       "village_id": 1,
       "resource_id": 3,
-      "amount": 2500,
+      "amount": 20000,
       "capacity": 20000
     }
   },
@@ -510,7 +510,7 @@
     "fields": {
       "village_id": 1,
       "resource_id": 1,
-      "amount": 2500,
+      "amount": 20000,
       "capacity": 20000
     }
   },
@@ -520,7 +520,7 @@
     "fields": {
       "village_id": 1,
       "resource_id": 2,
-      "amount": 1250,
+      "amount": 20000,
       "capacity": 10000
     }
   },

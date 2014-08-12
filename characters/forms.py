@@ -1,6 +1,7 @@
 from django import forms
 from characters.models import FighterClasses
 
+
 class CharacterCreationForm(forms.Form):
 
     name = forms.CharField(label='name', max_length=100)
@@ -8,6 +9,7 @@ class CharacterCreationForm(forms.Form):
     character_class = forms.ModelChoiceField(
         queryset=FighterClasses.objects.all()
     )
+
 
 class CharacterRemovalForm(forms.Form):
 

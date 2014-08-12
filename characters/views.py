@@ -6,7 +6,7 @@ from characters.forms import CharacterCreationForm, CharacterRemovalForm
 def index(request):
 
     character_list = Character.objects.order_by('created_at')
-    if request.session.get('selected_character_id') != None:
+    if request.session.get('selected_character_id') is not None:
         selected_character = Character.objects.get(
             pk=request.session.get('selected_character_id')
         )
@@ -21,10 +21,11 @@ def index(request):
         }
     return render(request, 'characters/index.html', context)
 
+
 def detail(request, character_id):
 
     if request.method == 'POST':
-        request.session["selected_character_id"]=character_id 
+        request.session["selected_character_id"] = character_id
         return redirect('index')
     else:
         character = Character.objects.get(pk=character_id)
@@ -32,6 +33,7 @@ def detail(request, character_id):
             'character': character,
         }
         return render(request, 'characters/detail.html', context)
+
 
 def create(request):
 
@@ -48,6 +50,7 @@ def create(request):
     else:
         form = CharacterCreationForm()
         return render(request, 'characters/create.html', {'form': form})
+
 
 def delete(request, character_id):
 
@@ -66,4 +69,3 @@ def delete(request, character_id):
         'character': character,
     }
     return render(request, 'characters/delete.html', context)
-
