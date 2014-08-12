@@ -1,0 +1,13 @@
+{% block content %}
+<form action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+    {% if messages %}
+    {% for message in messages %}
+        {{ message }}<br>
+    {% endfor %}
+    {% endif %}
+    <input type="text" name="username"><br>
+    <input type="text" name="password"><br>
+    <input type="submit">
+</form>
+{% endblock %}
