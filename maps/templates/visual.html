@@ -1,2 +1,13 @@
 {% block content %}
+<table>
+    {% for key, row in result.items %}
+        <tr>
+        {% for key, object in row.items %}
+            <td>
+            x{{object.x}} y{{object.y}} <img src="{{object.image}}">
+            </td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
 {% endblock %} 
