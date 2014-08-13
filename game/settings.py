@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'village',
     'users',
     'characters',
+    'maps',
 )
 
 MIDDLEWARE_CLASSES = (

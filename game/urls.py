@@ -10,4 +10,5 @@ urlpatterns = patterns(
     url(r'^village/', include('village.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^users/', include('users.urls')),
+    url(r'^maps/', include('maps.urls')),
 )
