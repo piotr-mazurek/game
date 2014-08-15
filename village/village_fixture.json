@@ -283,7 +283,8 @@
     "pk": 1,
     "fields": {
       "name": "Os'ald",
-      "character_id": 1
+      "character_id": 1,
+      "last_change": "2014-08-14 12:10"
     }
   },
   {
@@ -291,7 +292,8 @@
     "pk": 2,
     "fields": {
       "name": "Veren",
-      "character_id": 1
+      "character_id": 1,
+      "last_change": "2014-08-14 12:10"
     }
   },
   {
@@ -299,7 +301,8 @@
     "pk": 3,
     "fields": {
       "name": "Gar'mor",
-      "character_id": 2
+      "character_id": 2,
+      "last_change": "2014-08-14 12:10"
     }
   },
   {

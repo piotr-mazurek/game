@@ -1,33 +1,28 @@
-<strong>{{ village.name }}</strong> |		
-
-{% for resource in resources %}
-	{{ resource.resource_id }}: {{ resource.amount }}/{{ resource.capacity }} |
+| <strong>{{ name }}</strong> |		
+{% for k, v in resources.items %}
+	{{ v.name }}: {{ v.amount|floatformat:0 }} + {{ v.grow|floatformat:0 }}/h |
 {% endfor %}
-
+<hr>
 {% for building in buildings %}
 	<ul>
 		{{ building.building_id }}. Level: {{ building.level }} 
 			{% if building.level = 0 %}
 				<li><a href="{% url 'upgrade' building.building_id.id %}">Build</a>
 					Resources required to build {{ building.building_id }}.
-					{% if building.building_id.cost %}
-						{% for x,y in building.building_id.cost.items %}
-							<li>{{ x }}: {{ y }}</li>
-						{% endfor %}
-					{% endif %}
+					{% for x,y in building.building_id.cost.items %}
+						<li>{{ x }}: {{ y|floatformat:0 }}</li>
+					{% endfor %}
 				</li>
-			{% endif %}
-			{% if building.level > 0 %}
-				<li><a href="{% url 'downgrade' building.building_id.id %}">Downgrade</a></li>
 			{% endif %}
 			{% if building.level >= 1 and building.level < building.building_id.max_level %}
 				<li><a href="{% url 'upgrade' building.building_id.id %}">Upgrade</a></li>
 				Cost:
-				{% if building.building_id.cost %}
-					{% for x,y in building.building_id.cost.items %}
-						<li>{{ x }}: {{ y }}</li>
-					{% endfor %}
-				{% endif %}
+				{% for x, y in building.building_id.cost.items %}
+					<li>{{ x }}: {{ y|floatformat:0 }}</li>
+				{% endfor %}
+			{% endif %}
+			{% if building.level > 0 %}
+				<li><a href="{% url 'downgrade' building.building_id.id %}">Downgrade</a></li>
 			{% endif %}
 	</ul>
 {% endfor %}

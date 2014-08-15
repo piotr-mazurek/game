@@ -54,6 +54,7 @@ class Village(models.Model):
 
     name = models.CharField(max_length=100, unique=True)
     character_id = models.IntegerField(default=0)
+    last_change = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -76,11 +77,11 @@ class ResourcesInVillage(models.Model):
 
     village_id = models.ForeignKey(Village)
     resource_id = models.ForeignKey(Resources)
-    amount = models.IntegerField()
+    amount = models.DecimalField(decimal_places=4, max_digits=20)
     capacity = models.IntegerField()
 
     def __str__(self):
         return "%s, %s" % (
             self.village_id,
             self.resource_id
-            )
+        )

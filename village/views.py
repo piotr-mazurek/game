@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+import datetime
+from village.classes import CharacterVillage
 from village.models import (
     Village, 
     BuildingsInVillage, 
@@ -6,122 +8,70 @@ from village.models import (
     Buildings, 
     Costs,
     Gainings,
+    Resources,
     )
 
-def cost_per_level(level, building_id):
-
-    costs = Costs.objects.filter(building_id=building_id)
-    structure = Buildings.objects.get(id=building_id)
-    building_costs = {}
-    total_cost = {}
-    for cost in costs:
-        building_costs[str(cost.resource_id.resource_type)]={}
-        current_cost = cost.starting_cost
-        for i in range(1, structure.max_level+1):
-            building_costs[
-                str(cost.resource_id.resource_type)
-                ][i] = int(current_cost)
-            current_cost *= cost.multiplier
-    for resource in building_costs:
-        total_cost[resource] = building_costs[resource][level]
-    return total_cost
-
-def gain_per_level(level, building_id):
-
-    gains = Gainings.objects.filter(building_id=building_id)
-    structure = Buildings.objects.get(id=building_id)
-    building_gain = {}
-    total_gain = {}
-    for gain in gains:
-        building_gain[str(cost.resource_id.resource_type)]={}
-        current_gain = gain.first_gain
-        for i in range(1, structure.max_level+1):
-            building_gain[
-                str(gain.resource_id.resource_type)
-                ][i] = int(current_gain)
-            current_gain *= gain.multiplier
-    for resource in building_gain:
-        total_gain[resource] = building_gain[resource][level]
-    return total_cost
 
 def overview(request):
-
-    village = Village.objects.get(character_id=request.session.get('selected_character_id'))
+    """Creating village overview."""
+    c = CharacterVillage(request.session.get('selected_character_id'))
+    village = Village.objects.get(
+        character_id=request.session.get('selected_character_id')
+    )
     request.session["village_id"]=village.id
-    all_buildings = Buildings.objects.all()
-    buildings = BuildingsInVillage.objects.filter(
-        village_id=request.session.get('village_id')
-        )
-    resources = ResourcesInVillage.objects.filter(
-        village_id=request.session.get('village_id')
-        )
     name = village.name
+    buildings = BuildingsInVillage.objects.filter(
+        village_id=village.id
+    )
+    all_resources = Resources.objects.all()
+    res_names = {};
+    for r in all_resources:
+        res_names[r.id] = r.resource_type
     for building in buildings:
-        if building.level < 18:
-            building.building_id.cost = cost_per_level(
-                building.level+1,
-                building.building_id.id
-        )
+        if building.level < building.building_id.max_level:
+            building.building_id.cost = c.building_cost_per_level(
+                building.building_id.id, building.level+1
+            ).get_resources()
+            for k, v in building.building_id.cost.items():
+                building.building_id.cost[res_names[k]] = v
+                del building.building_id.cost[k] 
+    resources = c.get_current_resources().get_resources()
+    grow = c.get_current_resource_grow().get_resources()
+    result_res = {}
+    for k, v in resources.items():
+        res = {
+            'grow': grow[k],
+            'name': res_names[k],
+            'amount': resources[k],
+        }
+        result_res[k] = res
+
     context = {
         'name': name,
         'buildings': buildings,
-        'resources': resources,
-        'all_buildings': all_buildings,
+        'resources': result_res,
     }
     return render(request, 'village/overview.html', context)
 
 def upgrade(request, building_id):
+    """Building level upgrade."""
 
     building = BuildingsInVillage.objects.get(
-        building_id=building_id, village_id=request.session.get('village_id')
-        )
-    building.level += 1
-    total_cost = cost_per_level(building.level, building_id)
-    resources = ResourcesInVillage.objects.filter(
+        building_id=building_id,
         village_id=request.session.get('village_id')
-        )
+    )
+    c = CharacterVillage(request.session.get('selected_character_id'))
+    c.upgrade_building(building_id)
 
-    is_ok = True
-    for resource in resources:
-        amount = resource.amount - total_cost[
-            str(resource.resource_id.resource_type)
-        ]
-        if amount < 0:
-            is_ok = False
-
-    if is_ok:
-        for resource in resources:
-            try:
-                resource.amount -= total_cost[
-                    str(resource.resource_id.resource_type)
-                    ]
-                if resource.amount < 0:
-                    return redirect('overview')
-                resource.save()
-            except:
-                pass
-        building.save()
     return redirect('overview')
 
 def downgrade(request, building_id):
-
+    """Building level downgrade."""
     building = BuildingsInVillage.objects.get(
-        building_id=building_id, village_id=request.session.get('village_id')
-        )
-    total_cost = cost_per_level(building.level, building_id)
-    resources = ResourcesInVillage.objects.filter(
+        building_id=building_id,
         village_id=request.session.get('village_id')
-        )
-    building.level -= 1
-    for resource in resources:
-        try:
-            resource.amount += total_cost[
-                str(resource.resource_id.resource_type)
-                ]
-            if resource.amount > resource.capacity:
-                resource.amount = resource.capacity
-            resource.save()
-        except:
-            pass
-    building.save()
+    )
+    c = CharacterVillage(request.session.get('selected_character_id'))
+    c.downgrade_building(building_id)
+
     return redirect('overview')

@@ -2,6 +2,13 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from characters.models import Character
 from characters.forms import CharacterCreationForm, CharacterRemovalForm
+from village.models import (
+	Buildings,
+	Resources,
+	BuildingsInVillage,
+	ResourcesInVillage,
+	Village
+	)
 
 
 def index(request):
@@ -32,10 +39,11 @@ def detail(request, character_id):
 		return render(request, 'characters/detail.html', context)
 
 def create(request):
-
 	if request.method == 'POST':
 		form = CharacterCreationForm(request.POST)
 		if form.is_valid():
+			buildings = Buildings.objects.all()
+			resources = Resources.objects.all()
 			character = Character(
 				user_id=request.session.get('user_id'),
 				character_class_id=form.cleaned_data['character_class'],
@@ -43,6 +51,27 @@ def create(request):
 				image=form.cleaned_data['image'],
 			)
 			character.save()
+			village = Village(
+				name="Default village "+str(character.id),
+				character_id=character.id,
+			)
+			village.save()
+			for building in buildings:
+				buildings_in_village = BuildingsInVillage(
+					village_id=village,
+					building_id=building,
+					level=0,
+				)
+				buildings_in_village.save()
+			for resource in resources:
+				resources_in_village = ResourcesInVillage(
+					village_id=village,
+					resource_id=resource,
+					amount=40000,
+					capacity=50000,
+				)
+				resources_in_village.save()
+
 			return redirect('index')
 	elif request.method == 'GET':
 		form = CharacterCreationForm()
