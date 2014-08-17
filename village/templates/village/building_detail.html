@@ -1,0 +1,40 @@
+<style>
+table,th,td
+{
+border:1px solid black;
+}
+</style>
+{{ building.building_id }}<br>
+Level {{ building.level }}<hr>
+Table of costs:
+<table>
+	{% for k, v in building_cost.items %}
+		<tr>
+			<td>
+				{{ k }}
+			</td>
+			{% for l, a in v.items %}
+				<td>
+					{{ a|floatformat:0 }}
+				</td>
+			{% endfor %}
+		</tr>
+	{% endfor %}
+
+</table><hr>
+Table of gains:
+<table>
+	{% for k, v in building_gains.items %}
+		<tr>
+			<td>
+				{{ k }}
+			</td>
+			{% for l, a in v.items %}
+				<td>
+					{{ a|floatformat:0 }}
+				</td>
+			{% endfor %}
+		</tr>
+	{% endfor %}
+
+</table><hr>

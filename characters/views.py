@@ -12,7 +12,7 @@ from village.models import (
 
 
 def index(request):
-
+	"""Rendering view for all characters."""
 	user_id = request.session.get('user_id')
 	character_list = Character.objects.filter(user_id=user_id)
 	if request.session.get('selected_character_id') is not None:
@@ -29,7 +29,7 @@ def index(request):
 	return render(request, 'characters/index.html', context)
 
 def detail(request, character_id):
-
+	"""Rendering detail view for character."""
 	if request.method == 'POST':
 		request.session["selected_character_id"] = character_id 
 		return redirect('index')
@@ -39,6 +39,7 @@ def detail(request, character_id):
 		return render(request, 'characters/detail.html', context)
 
 def create(request):
+	"""Rendering view for character creation. """
 	if request.method == 'POST':
 		form = CharacterCreationForm(request.POST)
 		if form.is_valid():
@@ -78,7 +79,7 @@ def create(request):
 		return render(request,'characters/create.html', {'form': form})
 
 def delete(request, character_id):
-	
+	"""Rendering view for character removal."""
 	character = Character.objects.get(pk=character_id)
 	if request.method == 'POST':
 		form = CharacterRemovalForm(request.POST)

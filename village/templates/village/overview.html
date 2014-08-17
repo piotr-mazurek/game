@@ -1,15 +1,25 @@
-| <strong>{{ name }}</strong> |		
+<style>
+a{
+text-decoration: none;
+}
+</style>
+| <a href= "{% url 'village_name_change' village.id %}">
+<strong>{{ village.name }}</strong> 
+</a>|		
 {% for k, v in resources.items %}
 	{{ v.name }}: {{ v.amount|floatformat:0 }} + {{ v.grow|floatformat:0 }}/h |
 {% endfor %}
 <hr>
 {% for building in buildings %}
 	<ul>
-		{{ building.building_id }}. Level: {{ building.level }} 
+	<a href= "{% url 'building_detail' building.id %}">
+		{{ building.building_id }}
+	</a><br>
+		Level: {{ building.level }} 
 			{% if building.level = 0 %}
 				<li><a href="{% url 'upgrade' building.building_id.id %}">Build</a>
 					Resources required to build {{ building.building_id }}.
-					{% for x,y in building.building_id.cost.items %}
+					{% for x, y in building.building_id.cost.items %}
 						<li>{{ x }}: {{ y|floatformat:0 }}</li>
 					{% endfor %}
 				</li>

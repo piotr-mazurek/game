@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 import datetime
 from village.classes import CharacterVillage
+from village.forms import VillageNameChangeForm
 from village.models import (
     Village, 
     BuildingsInVillage, 
@@ -13,13 +14,12 @@ from village.models import (
 
 
 def overview(request):
-    """Creating village overview."""
+    """Rendering village overview."""
     c = CharacterVillage(request.session.get('selected_character_id'))
     village = Village.objects.get(
         character_id=request.session.get('selected_character_id')
     )
     request.session["village_id"]=village.id
-    name = village.name
     buildings = BuildingsInVillage.objects.filter(
         village_id=village.id
     )
@@ -45,9 +45,8 @@ def overview(request):
             'amount': resources[k],
         }
         result_res[k] = res
-
     context = {
-        'name': name,
+        'village': village,
         'buildings': buildings,
         'resources': result_res,
     }
@@ -75,3 +74,46 @@ def downgrade(request, building_id):
     c.downgrade_building(building_id)
 
     return redirect('overview')
+
+def building_detail(request, id):
+    """ Rendering detail view for building."""
+    c = CharacterVillage(request.session.get('selected_character_id'))
+    building = BuildingsInVillage.objects.get(id=id)
+    all_resources = Resources.objects.all()
+    res_names = {};
+    for r in all_resources:
+        res_names[r.id] = r.resource_type
+    building_cost = c.building_cost(building.building_id)
+    for k, v in building_cost.items():
+        building_cost[res_names[k]] = v
+        del building_cost[k]
+    building_gains = c.resource_grow(building.building_id)
+    for k, v in building_gains.items():
+        building_gains[res_names[k]] = v
+        del building_gains[k]
+    context = {
+        'building': building,
+        'building_gains': building_gains,
+        'building_cost': building_cost,
+    }
+
+    return render(request, 'village/building_detail.html', context)
+
+def village_name_change(request, village_id):
+    """Rendering village name change view."""
+    village = Village.objects.get(id=village_id)
+    if request.method == 'POST':
+        form = VillageNameChangeForm(request.POST)
+        if form.is_valid():
+            village.name = form.cleaned_data['name']
+            village.save()
+
+            return redirect('overview')
+
+    form = VillageNameChangeForm()
+    context = {
+        'form': form,
+        'village': village
+    }
+
+    return render(request, 'village/village_name_change.html', context)

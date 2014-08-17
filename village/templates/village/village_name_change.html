@@ -1,0 +1,7 @@
+<h1>Here you can change name of your village.</h1>
+
+<form action="{% url 'village_name_change' village.id %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>

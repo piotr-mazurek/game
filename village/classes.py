@@ -1,14 +1,5 @@
-from collections import defaultdict
 from datetime import datetime
-from village.models import (
-    Village,
-    BuildingsInVillage,
-    ResourcesInVillage,
-    Buildings,
-    Costs,
-    Gainings,
-    Resources,
-)
+from village.models import Village
 
 
 class ResourcesContainer(object):
@@ -98,22 +89,45 @@ class CharacterVillage(object):
                 )
         return result
 
-    def building_cost_per_level(self, building_id, level):
-        """Calculates and retruns cost per level for given building
+    def resource_grow(self, building_id):
+        """Calculates building gain at all levels."""
+        gains = {}
+        building = self.village.buildingsinvillage_set.get(
+            building_id=building_id
+        )
+        for grow in building.building_id.gainings_set.all():
+            current_grow = grow.first_gain
+            gains[grow.resource_id.id] = {}
+            for lv in range(1, building.building_id.max_level+1):
+                gains[grow.resource_id.id][lv] = current_grow
+                current_grow *= grow.multiplier
+        return gains
 
-            return: ResourcesContainer
-        """
+    def compute_gain_per_level(self, level, base, multiplier):
+        """Calculates building gain per level."""
+        gain_sum = base
+        for lv in range(1, level):
+            gain_sum *= multiplier
+        return gain_sum
+
+    def building_cost(self, building_id):
+        """Calculates and retruns cost for given building."""
         result = {}
-        final_result = ResourcesContainer()
         building = self.village.buildingsinvillage_set.get(
             building_id=building_id
         )
         for cost in building.building_id.costs_set.all():
             current_cost = cost.starting_cost
             result[cost.resource_id.id] = {}
-            for lv in range(1, level+1):
+            for lv in range(1, building.building_id.max_level+1):
                 result[cost.resource_id.id][lv] = current_cost
                 current_cost *= cost.multiplier
+        return result
+
+    def building_cost_per_level(self, building_id, level):
+        """ Finds cost of building for given level."""
+        result = self.building_cost(building_id)
+        final_result = ResourcesContainer()
         for res in result:
             try:
                 final_result.add_resource(res, result[res][level])
@@ -121,13 +135,8 @@ class CharacterVillage(object):
                 pass
         return final_result
 
-    def compute_gain_per_level(self, level, base, multiplier):
-        gain_sum = base
-        for lv in range(1, level):
-            gain_sum *= multiplier
-        return gain_sum
-
     def upgrade_building(self, building_id):
+        """Recalculates resources and upgrade building in db."""
         building = self.village.buildingsinvillage_set.get(
             building_id=building_id
         )
@@ -151,6 +160,7 @@ class CharacterVillage(object):
             building.save()
 
     def downgrade_building(self, building_id):
+        """Recalculates resources and downgrade building in db."""
         building = self.village.buildingsinvillage_set.get(
             building_id=building_id
         )
